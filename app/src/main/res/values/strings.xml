@@ -14,7 +14,7 @@
     <string name="opensource">Open Source</string>
     <string name="opensource_text">List of tools and libraries used to make this app.</string>
     <string name="author">Author</string>
-    <string name="author_text">The apps as been developed by Arnaud Camus.</string>
+    <string name="author_text">The apps has been developed by Arnaud Camus.</string>
     <string name="evaluation">Evaluation</string>
     <string name="evaluation_text">Please give us feedback on the event via this form.</string>
     <!-- transition name -->
@@ -40,7 +40,7 @@
     <string name="define_PrettySharedPreferences"></string>
     <string name="library_PrettySharedPreferences_author">Nguyen Truong Giang</string>
     <string name="library_PrettySharedPreferences_libraryName">PrettySharedPreferences</string>
-    <string name="library_PrettySharedPreferences_libraryDescription">PrettySharedPreferences is a lightweight library for help you deal with SharedPreferences more easy and reduce most of boilplace code.</string>
+    <string name="library_PrettySharedPreferences_libraryDescription">PrettySharedPreferences is a lightweight library to help you deal with SharedPreferences more easily and reduce boilerplate code.</string>
     <string name="library_PrettySharedPreferences_libraryVersion">1.0.1</string>
     <string name="library_PrettySharedPreferences_libraryWebsite">https://github.com/talenguyen/PrettySharedPreferences</string>
     <string name="library_PrettySharedPreferences_licenseId">apache_2_0</string>
