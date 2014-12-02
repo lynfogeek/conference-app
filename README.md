@@ -1,7 +1,7 @@
 droidconNL-2014
 ===============
 
-Simple conference app made for the Droidcon NL 2014. It simply displays the list of talks and different details / informations about it: speaker, description, room, etc.
+Simple conference app made for the Droidcon NL 2014. Displays the list of talks and details about them: speaker, description, room, etc.
 
 
 ## Material Design
