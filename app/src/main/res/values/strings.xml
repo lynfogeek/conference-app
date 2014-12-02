@@ -14,7 +14,7 @@
     <string name="opensource">Open Source</string>
     <string name="opensource_text">List of tools and libraries used to make this app.</string>
     <string name="author">Author</string>
-    <string name="author_text">The apps has been developed by Arnaud Camus.</string>
+    <string name="author_text">This app has been developed by Arnaud Camus.</string>
     <string name="evaluation">Evaluation</string>
     <string name="evaluation_text">Please give us feedback on the event via this form.</string>
     <!-- transition name -->
