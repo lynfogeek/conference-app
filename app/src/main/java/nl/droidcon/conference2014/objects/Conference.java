@@ -1,6 +1,8 @@
 package nl.droidcon.conference2014.objects;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
@@ -10,7 +12,7 @@ import nl.droidcon.conference2014.utils.PreferenceManager;
  * Conference object, created by the CSV file
  * @author Arnaud Camus
  */
-public class Conference implements Serializable {
+public class Conference implements Serializable, Parcelable {
 
     private String startDate;
     private String endDate;
@@ -113,4 +115,40 @@ public class Conference implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.startDate);
+        dest.writeString(this.endDate);
+        dest.writeString(this.headeline);
+        dest.writeString(this.speaker);
+        dest.writeString(this.speakerImageUrl);
+        dest.writeString(this.text);
+        dest.writeString(this.location);
+    }
+
+    protected Conference(Parcel in) {
+        this.startDate = in.readString();
+        this.endDate = in.readString();
+        this.headeline = in.readString();
+        this.speaker = in.readString();
+        this.speakerImageUrl = in.readString();
+        this.text = in.readString();
+        this.location = in.readString();
+    }
+
+    public static final Creator<Conference> CREATOR = new Creator<Conference>() {
+        public Conference createFromParcel(Parcel source) {
+            return new Conference(source);
+        }
+
+        public Conference[] newArray(int size) {
+            return new Conference[size];
+        }
+    };
 }

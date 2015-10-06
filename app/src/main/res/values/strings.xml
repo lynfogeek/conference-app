@@ -8,6 +8,7 @@
     <string name="speaker_title">Speaker:</string>
     <string name="text_title">Description:</string>
     <string name="location">&#160;\@ %1$s</string>
+    <string name="day">Day %1$d</string>
     <!-- about -->
     <string name="venue">Venue</string>
     <string name="venue_text">droidconNL 2014 will take place at CASA 400 AMSTERDAM\n\nCasa 400 is just a 3 minute walk from Amsterdam Amstel station. Subways, buses, trams and trains stop at this station.</string>

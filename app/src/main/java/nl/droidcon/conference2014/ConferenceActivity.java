@@ -3,7 +3,7 @@ package nl.droidcon.conference2014;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
 import android.view.Gravity;
@@ -29,7 +29,7 @@ import nl.droidcon.conference2014.views.FABView;
  *
  * @author Arnaud Camus
  */
-public class ConferenceActivity extends ActionBarActivity {
+public class ConferenceActivity extends AppCompatActivity {
 
     Conference mConference;
     SimpleDateFormat simpleDateFormat;
@@ -72,7 +72,7 @@ public class ConferenceActivity extends ActionBarActivity {
             });
         }
 
-        mConference = (Conference)getIntent().getSerializableExtra("conference");
+        mConference = getIntent().getParcelableExtra("conference");
 
         ((TextView)findViewById(R.id.headline)).setText(mConference.getHeadeline());
         ((TextView)findViewById(R.id.speaker)).setText(mConference.getSpeaker());

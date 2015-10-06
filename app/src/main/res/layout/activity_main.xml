@@ -1,26 +1,61 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/main_content"
+    android:background="@android:color/white">
 
-
-    <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:id="@+id/toolbar"
-        android:icon="@drawable/ic_launcher"
-        android:paddingLeft="72dp"
-        android:transitionName="@string/toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimary"/>
+        android:fitsSystemWindows="true">
 
-    <ListView
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:toolbarId="@+id/toolbar"
+            app:contentScrim="?attr/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
+        <android.support.v7.widget.Toolbar
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:id="@+id/toolbar"
+            android:transitionName="@string/toolbar"
+            app:layout_scrollFlags="scroll"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/listView"
-        android:background="@color/windowBackground"/>
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</RelativeLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary"
+            android:scrollbarSize="24sp"
+            android:paddingLeft="16dp"
+            android:elevation="4dp"
+            app:tabTextColor="#AFFF"
+            app:tabSelectedTextColor="#FFF"
+            app:tabIndicatorColor="#FFF"
+            app:tabIndicatorHeight="2dp"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
