@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.Serializable;
 
@@ -32,13 +31,6 @@ public class Conference implements Serializable, Parcelable {
         speaker = fromCSV[10];
         speakerImageUrl = fromCSV[11];
         text = fromCSV[12];
-
-        int i = 0;
-        for (String s: fromCSV) {
-            Log.i("CSV", i+ "-" +s);
-            i++;
-        }
-        Log.e("END CSV Line", "END LINE");
     }
 
     /**
