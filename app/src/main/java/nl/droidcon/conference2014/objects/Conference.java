@@ -3,6 +3,8 @@ package nl.droidcon.conference2014.objects;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -22,14 +24,21 @@ public class Conference implements Serializable, Parcelable {
     private String text;
     private String location;
 
-    public Conference(String[] fromCSV) {
+    public Conference(@NonNull String[] fromCSV) {
         startDate = fromCSV[0];
         endDate = fromCSV[1];
         headeline = fromCSV[2];
-        speaker = fromCSV[3];
-        speakerImageUrl = fromCSV[4];
-        text = fromCSV[5];
-        location = fromCSV[6];
+        location = fromCSV[9];
+        speaker = fromCSV[10];
+        speakerImageUrl = fromCSV[11];
+        text = fromCSV[12];
+
+        int i = 0;
+        for (String s: fromCSV) {
+            Log.i("CSV", i+ "-" +s);
+            i++;
+        }
+        Log.e("END CSV Line", "END LINE");
     }
 
     /**

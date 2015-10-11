@@ -123,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
             reader.readNext(); // file headline
             String [] nextLine;
             while ((nextLine = reader.readNext()) != null) {
-                mConferences.add(new Conference(nextLine));
+                if (nextLine != null && nextLine.length >= 12) {
+                    mConferences.add(new Conference(nextLine));
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

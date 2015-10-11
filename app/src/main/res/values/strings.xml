@@ -18,6 +18,12 @@
     <string name="author_text">This app has been developed by Arnaud Camus.</string>
     <string name="evaluation">Evaluation</string>
     <string name="evaluation_text">Please give us feedback on the event via this form.</string>
+    <string name="coffee_break">Coffee break</string>
+    <string name="lunch">Lunch</string>
+    <string name="tba">t.b.a.</string>
+    <string name="program_d2">CLICK HERE FOR PROGRAM DAY 2 !</string>
+
+
     <!-- transition name -->
     <string name="toolbar">toolbar</string>
     <string name="image">image</string>

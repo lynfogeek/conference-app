@@ -1,7 +1,9 @@
 package nl.droidcon.conference2014.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,10 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return mData.get(position).getSpeaker().length() == 0 ? VIEW_HEADER : VIEW_CONFERENCE;
+        return mData.get(position).getSpeaker() != null
+                    && !TextUtils.isEmpty(mData.get(position).getSpeaker())
+                        ? VIEW_CONFERENCE
+                        : VIEW_HEADER;
     }
 
 
@@ -70,6 +75,20 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             .append(simpleDateFormat2.format(new Date(mData.get(position).getEndDate())))
                             .toString());
             ((ViewHolderHeader)holder).headline.setText(mData.get(position).getHeadeline());
+
+            if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.coffee_break))) {
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.babbq_orange));
+                ((ViewHolderHeader)holder).iconHeader.setImageResource(R.drawable.coffee);
+            } else if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.lunch))) {
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.babbq_purple));
+                ((ViewHolderHeader)holder).iconHeader.setImageResource(R.drawable.toast);
+            } else if (mData.get(position).getHeadeline().equals(mContext.getString(R.string.tba))) {
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.windowBackground));
+                ((ViewHolderHeader)holder).iconHeader.setImageDrawable(null);
+            } else {
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.babbq_yellow));
+                ((ViewHolderHeader)holder).iconHeader.setImageResource(R.drawable.microphone);
+            }
 
         } else if (holder instanceof ViewHolderConference) {
             ((ViewHolderConference)holder).dateStart
