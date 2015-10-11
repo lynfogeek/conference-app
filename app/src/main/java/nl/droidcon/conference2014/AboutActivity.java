@@ -76,7 +76,7 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
         switch (position) {
             case 0: //Launch Navigation to the conference site
                 Intent i = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("https://www.google.com/maps/dir//Hotel+Casa+400,+Eerste+Ringdijkstraat+4,+1097+BC+Amsterdam,+Netherlands/@52.349904,4.844722,12z"));
+                        Uri.parse("https://www.google.nl/maps/place/Johan+Huizingalaan+763A,+1066+VH+Amsterdam/@52.3430396,4.8270918,17z/data=!3m1!4b1!4m2!3m1!1s0x47c5e18eae78495d:0x69f2205bc0250fb4"));
                 startActivity(i);
                 break;
             case 1: // Display the Open Source projects used for this application

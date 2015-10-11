@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Droidcon NL</string>
+    <string name="app_name">Big Android BBQ Europe</string>
     <string name="title_activity_conference">ConferenceActivity</string>
     <string name="action_about">About</string>
     <string name="action_more">More</string>
@@ -11,7 +11,7 @@
     <string name="day">Day %1$d</string>
     <!-- about -->
     <string name="venue">Venue</string>
-    <string name="venue_text">droidconNL 2014 will take place at CASA 400 AMSTERDAM\n\nCasa 400 is just a 3 minute walk from Amsterdam Amstel station. Subways, buses, trams and trains stop at this station.</string>
+    <string name="venue_text">Big Android BBQ will take place at B.Amsterdam\n\nMetro line 50 Gein / Isolatorweg – get off at stop Henk Sneevlietweg</string>
     <string name="opensource">Open Source</string>
     <string name="opensource_text">List of tools and libraries used to make this app.</string>
     <string name="author">Author</string>
@@ -31,7 +31,7 @@
     <string name="speaker">speaker</string>
 
     <!-- notification -->
-    <string name="notification_title">Thank you for attending droidconNL 2014</string>
+    <string name="notification_title">Thank you for attending Big Android BBQ Europe</string>
     <string name="notification_text">We hope you can help us improve the event by providing some feedback information</string>
 
     <!-- libraries -->
