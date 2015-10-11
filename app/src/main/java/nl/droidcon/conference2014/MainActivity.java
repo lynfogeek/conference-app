@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
             reader.readNext(); // file headline
             String [] nextLine;
             while ((nextLine = reader.readNext()) != null) {
-                if (nextLine != null && nextLine.length >= 12) {
+                if (nextLine.length >= 12
+                        && !Utils.arrayContains(nextLine, getString(R.string.program_d2))) {
                     mConferences.add(new Conference(nextLine));
                 }
             }

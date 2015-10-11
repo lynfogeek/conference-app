@@ -2,6 +2,7 @@ package nl.droidcon.conference2014.utils;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
 /**
@@ -26,6 +27,14 @@ public class Utils {
         return (int)(px / (displayMetrics.densityDpi / 160f));
     }
 
+    public static boolean arrayContains(@NonNull String[] array, @NonNull String toFind) {
+        for (String s: array) {
+            if (s.contains(toFind)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;

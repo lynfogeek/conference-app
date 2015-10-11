@@ -65,16 +65,12 @@ public class ListingFragment extends Fragment {
                     return;
                 }
 
-                // On Lollipop we animate the speaker's name & picture and conference title
+                // On Lollipop and above we animate the conference title
                 // to the second activity
-                Pair<View, String> image = Pair.create(v.findViewById(R.id.image),
-                        getString(R.string.image));
                 Pair<View, String> headline = Pair.create(v.findViewById(R.id.headline),
                         getString(R.string.headline));
-                Pair<View, String> speaker = Pair.create(v.findViewById(R.id.speaker),
-                        getString(R.string.speaker));
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                        image, headline, speaker).toBundle();
+                        headline).toBundle();
                 Intent intent = new Intent(getActivity(), ConferenceActivity.class);
                 intent.putExtra("conference", (Parcelable)mData.get(position));
                 ActivityCompat.startActivity(getActivity(), intent, bundle);
