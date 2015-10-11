@@ -11,21 +11,27 @@
         android:layout_width="match_parent"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:toolbarId="@+id/toolbar"
-            app:contentScrim="?attr/colorPrimary"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
         <android.support.v7.widget.Toolbar
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:id="@+id/toolbar"
+            android:elevation="4dp"
             android:transitionName="@string/toolbar"
-            app:layout_scrollFlags="scroll"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:scrollbarSize="24sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:elevation="4dp"
+            app:tabTextColor="#AFFF"
+            app:tabSelectedTextColor="#FFF"
+            app:tabIndicatorColor="#FFF"
+            app:tabIndicatorHeight="2dp"/>
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -34,20 +40,6 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/colorPrimary"
-            android:scrollbarSize="24sp"
-            android:paddingLeft="16dp"
-            android:elevation="4dp"
-            app:tabTextColor="#AFFF"
-            app:tabSelectedTextColor="#FFF"
-            app:tabIndicatorColor="#FFF"
-            app:tabIndicatorHeight="2dp"
-            app:layout_collapseMode="pin"
-            app:layout_scrollFlags="scroll|enterAlways"/>
 
 
         <android.support.v4.view.ViewPager
