@@ -28,6 +28,7 @@
         android:textColor="@color/textColorSecondary"
         android:textSize="20sp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_below="@+id/dateStart" />
 
     <ImageView

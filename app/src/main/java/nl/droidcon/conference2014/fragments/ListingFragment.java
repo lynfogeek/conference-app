@@ -20,6 +20,7 @@ import nl.droidcon.conference2014.ConferenceActivity;
 import nl.droidcon.conference2014.R;
 import nl.droidcon.conference2014.adapters.MainAdapter;
 import nl.droidcon.conference2014.objects.Conference;
+import nl.droidcon.conference2014.utils.DividerItemDecoration;
 import nl.droidcon.conference2014.utils.ItemClickSupport;
 
 /**
@@ -56,12 +57,13 @@ public class ListingFragment extends Fragment {
                 .inflate(R.layout.fragment_listing, parent, false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL_LIST));
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 if (mData.get(position).getSpeaker().length() == 0) {
-                    // if the speaker field is empty, it's probably a coffee break or lunch
+                    // if the speaker field is empty, it's probably a rre break or lunch
                     return;
                 }
 
