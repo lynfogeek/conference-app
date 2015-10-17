@@ -5,6 +5,11 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
+import com.android.internal.util.Predicate;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Utility class
  * @author Arnaud Camus
@@ -34,6 +39,17 @@ public class Utils {
             }
         }
         return false;
+    }
+
+
+    public static <T> Collection<T> filter(Collection<T> target, Predicate<T> predicate) {
+        Collection<T> result = new ArrayList<T>();
+        for (T element: target) {
+            if (predicate.apply(element)) {
+                result.add(element);
+            }
+        }
+        return result;
     }
 
     public static boolean isLollipop() {

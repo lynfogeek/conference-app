@@ -28,6 +28,7 @@ import java.util.List;
 
 import nl.droidcon.conference2014.fragments.ListingFragment;
 import nl.droidcon.conference2014.objects.Conference;
+import nl.droidcon.conference2014.objects.ConferenceDay;
 import nl.droidcon.conference2014.utils.PreferenceManager;
 import nl.droidcon.conference2014.utils.SendNotification;
 import nl.droidcon.conference2014.utils.Utils;
@@ -105,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mAdapter.addFragment(ListingFragment.newInstance(mConferences), getString(R.string.day, 1));
-        mAdapter.addFragment(ListingFragment.newInstance(mConferences), getString(R.string.day, 2));
+        ConferenceDay day1 = new ConferenceDay(1, "11/12/2015");
+        ConferenceDay day2 = new ConferenceDay(2, "11/13/2015");
+        mAdapter.addFragment(ListingFragment.newInstance(mConferences, day1), getString(R.string.day, 1));
+        mAdapter.addFragment(ListingFragment.newInstance(mConferences, day2), getString(R.string.day, 2));
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

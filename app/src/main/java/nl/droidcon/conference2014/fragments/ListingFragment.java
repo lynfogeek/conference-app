@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.internal.util.Predicate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +22,10 @@ import nl.droidcon.conference2014.ConferenceActivity;
 import nl.droidcon.conference2014.R;
 import nl.droidcon.conference2014.adapters.MainAdapter;
 import nl.droidcon.conference2014.objects.Conference;
+import nl.droidcon.conference2014.objects.ConferenceDay;
 import nl.droidcon.conference2014.utils.DividerItemDecoration;
 import nl.droidcon.conference2014.utils.ItemClickSupport;
+import nl.droidcon.conference2014.utils.Utils;
 
 /**
  * Created by nono on 10/6/15.
@@ -33,9 +37,14 @@ public class ListingFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Conference> mData;
 
-    public static ListingFragment newInstance(ArrayList<Conference> conferences) {
+    public static ListingFragment newInstance(ArrayList<Conference> conferences, final ConferenceDay day) {
         Bundle args = new Bundle();
-        args.putParcelableArrayList(DATA, conferences);
+        Predicate<Conference> aDay = new Predicate<Conference>() {
+            public boolean apply(Conference conference) {
+                return conference.getStartDate().startsWith(day.getDay());
+            }
+        };
+        args.putParcelableArrayList(DATA, (ArrayList<? extends Parcelable>) Utils.filter(conferences, aDay));
         ListingFragment fragment = new ListingFragment();
         fragment.setArguments(args);
         return fragment;
