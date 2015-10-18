@@ -20,6 +20,7 @@ import java.util.List;
 
 import nl.droidcon.conference2014.ConferenceActivity;
 import nl.droidcon.conference2014.R;
+import nl.droidcon.conference2014.adapters.HasAdapter;
 import nl.droidcon.conference2014.adapters.MainAdapter;
 import nl.droidcon.conference2014.objects.Conference;
 import nl.droidcon.conference2014.objects.ConferenceDay;
@@ -30,12 +31,13 @@ import nl.droidcon.conference2014.utils.Utils;
 /**
  * Created by nono on 10/6/15.
  */
-public class ListingFragment extends Fragment {
+public class ListingFragment extends Fragment implements HasAdapter {
 
     private final static String DATA = "data";
 
     private RecyclerView mRecyclerView;
     private List<Conference> mData;
+    private MainAdapter mAdapter;
 
     public static ListingFragment newInstance(ArrayList<Conference> conferences, final ConferenceDay day) {
         Bundle args = new Bundle();
@@ -94,6 +96,14 @@ public class ListingFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mRecyclerView.setAdapter(new MainAdapter(getActivity(), mData));
+        mAdapter = new MainAdapter(getActivity(), mData);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

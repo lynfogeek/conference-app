@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.droidcon.conference2014.adapters.HasAdapter;
 import nl.droidcon.conference2014.fragments.ListingFragment;
 import nl.droidcon.conference2014.objects.Conference;
 import nl.droidcon.conference2014.objects.ConferenceDay;
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     private final class MainPagerAdapter extends FragmentPagerAdapter {
 
 
-        private List<Fragment> mFragments;
+        private List<ListingFragment> mFragments;
         private List<String> mFragmentTitles;
 
 
@@ -186,11 +187,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        public void addFragment(Fragment fragment, String title) {
+        public void addFragment(ListingFragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }
 
+        @Override
+        public void notifyDataSetChanged() {
+            super.notifyDataSetChanged();
+            if (mFragments != null) {
+                for (ListingFragment fragment: mFragments) {
+                    fragment.notifyDataSetChanged();
+                }
+            }
+        }
 
         @Override
         public Fragment getItem(int position) {
