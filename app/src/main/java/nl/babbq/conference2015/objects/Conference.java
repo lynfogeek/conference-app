@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.objects;
+package nl.babbq.conference2015.objects;
 
 import android.content.Context;
 import android.os.Parcel;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-import nl.droidcon.conference2014.utils.PreferenceManager;
+import nl.babbq.conference2015.utils.PreferenceManager;
 
 /**
  * Conference object, created by the CSV file

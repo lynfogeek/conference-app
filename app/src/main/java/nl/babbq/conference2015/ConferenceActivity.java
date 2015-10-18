@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014;
+package nl.babbq.conference2015;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -18,8 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import nl.droidcon.conference2014.objects.Conference;
-import nl.droidcon.conference2014.utils.Utils;
+import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.utils.Utils;
 
 /**
  * Display the detail for one {@link Conference}
@@ -93,7 +93,7 @@ public class ConferenceActivity extends AppCompatActivity {
 
     /**
      * Setup a fab to allow the
-     * user to favorite the current {@link nl.droidcon.conference2014.objects.Conference}
+     * user to favorite the current {@link nl.babbq.conference2015.objects.Conference}
      */
     private void setupFAB() {
         fab.setImageResource((mConference.isFavorite(getBaseContext())

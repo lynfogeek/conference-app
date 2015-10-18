@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.utils;
+package nl.babbq.conference2015.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

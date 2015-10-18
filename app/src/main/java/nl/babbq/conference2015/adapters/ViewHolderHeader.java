@@ -1,11 +1,11 @@
-package nl.droidcon.conference2014.adapters;
+package nl.babbq.conference2015.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import nl.droidcon.conference2014.R;
+import nl.babbq.conference2015.R;
 
 
 public class ViewHolderHeader extends RecyclerView.ViewHolder {

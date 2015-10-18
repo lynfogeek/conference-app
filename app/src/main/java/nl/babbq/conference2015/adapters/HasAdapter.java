@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.adapters;
+package nl.babbq.conference2015.adapters;
 
 /**
  * Created by nono on 10/18/15.

@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.adapters;
+package nl.babbq.conference2015.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import nl.droidcon.conference2014.R;
-import nl.droidcon.conference2014.objects.AboutItem;
+import nl.babbq.conference2015.R;
+import nl.babbq.conference2015.objects.AboutItem;
 
 /**
- * Adapter for the {@link nl.droidcon.conference2014.AboutActivity}
+ * Adapter for the {@link nl.babbq.conference2015.AboutActivity}
  * @author Arnaud Camus
  */
 public class AboutAdapter extends ArrayAdapter<AboutItem> {

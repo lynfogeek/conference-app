@@ -1,11 +1,11 @@
-package nl.droidcon.conference2014.objects;
+package nl.babbq.conference2015.objects;
 
 import android.support.annotation.DrawableRes;
 
 import java.io.Serializable;
 
 /**
- * Object use in the {@link nl.droidcon.conference2014.AboutActivity} for each
+ * Object use in the {@link nl.babbq.conference2015.AboutActivity} for each
  * row item.
  * @author Arnaud Camus
  */

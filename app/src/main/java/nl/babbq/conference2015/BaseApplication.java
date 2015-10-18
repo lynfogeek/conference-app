@@ -1,11 +1,11 @@
-package nl.droidcon.conference2014;
+package nl.babbq.conference2015;
 
 import android.app.Application;
 import android.graphics.Bitmap;
 
 import com.squareup.picasso.Transformation;
 
-import nl.droidcon.conference2014.utils.ImageManager;
+import nl.babbq.conference2015.utils.ImageManager;
 
 /**
  * Basic implementation of the Application class

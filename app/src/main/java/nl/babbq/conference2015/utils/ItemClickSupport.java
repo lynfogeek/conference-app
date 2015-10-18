@@ -1,9 +1,9 @@
-package nl.droidcon.conference2014.utils;
+package nl.babbq.conference2015.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import nl.droidcon.conference2014.R;
+import nl.babbq.conference2015.R;
 
 public class ItemClickSupport {
     private final RecyclerView mRecyclerView;

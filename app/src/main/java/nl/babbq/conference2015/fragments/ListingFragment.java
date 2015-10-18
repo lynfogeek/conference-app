@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.fragments;
+package nl.babbq.conference2015.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,15 +18,15 @@ import com.android.internal.util.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.droidcon.conference2014.ConferenceActivity;
-import nl.droidcon.conference2014.R;
-import nl.droidcon.conference2014.adapters.HasAdapter;
-import nl.droidcon.conference2014.adapters.MainAdapter;
-import nl.droidcon.conference2014.objects.Conference;
-import nl.droidcon.conference2014.objects.ConferenceDay;
-import nl.droidcon.conference2014.utils.DividerItemDecoration;
-import nl.droidcon.conference2014.utils.ItemClickSupport;
-import nl.droidcon.conference2014.utils.Utils;
+import nl.babbq.conference2015.ConferenceActivity;
+import nl.babbq.conference2015.R;
+import nl.babbq.conference2015.adapters.HasAdapter;
+import nl.babbq.conference2015.adapters.MainAdapter;
+import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.ConferenceDay;
+import nl.babbq.conference2015.utils.DividerItemDecoration;
+import nl.babbq.conference2015.utils.ItemClickSupport;
+import nl.babbq.conference2015.utils.Utils;
 
 /**
  * Created by nono on 10/6/15.

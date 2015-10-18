@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014;
+package nl.babbq.conference2015;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -26,12 +26,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.droidcon.conference2014.fragments.ListingFragment;
-import nl.droidcon.conference2014.objects.Conference;
-import nl.droidcon.conference2014.objects.ConferenceDay;
-import nl.droidcon.conference2014.utils.PreferenceManager;
-import nl.droidcon.conference2014.utils.SendNotification;
-import nl.droidcon.conference2014.utils.Utils;
+import nl.babbq.conference2015.fragments.ListingFragment;
+import nl.babbq.conference2015.objects.Conference;
+import nl.babbq.conference2015.objects.ConferenceDay;
+import nl.babbq.conference2015.utils.PreferenceManager;
+import nl.babbq.conference2015.utils.SendNotification;
+import nl.babbq.conference2015.utils.Utils;
 
 
 /**
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Track how many times the Activity is launched and
-     * send a push notification {@link nl.droidcon.conference2014.utils.SendNotification}
+     * send a push notification {@link nl.babbq.conference2015.utils.SendNotification}
      * to ask the user for feedback on the event.
      */
     private void trackOpening() {

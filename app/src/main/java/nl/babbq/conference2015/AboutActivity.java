@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014;
+package nl.babbq.conference2015;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,8 +15,8 @@ import com.mikepenz.aboutlibraries.ui.LibsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.droidcon.conference2014.adapters.AboutAdapter;
-import nl.droidcon.conference2014.objects.AboutItem;
+import nl.babbq.conference2015.adapters.AboutAdapter;
+import nl.babbq.conference2015.objects.AboutItem;
 
 /**
  * This activity gives access to:

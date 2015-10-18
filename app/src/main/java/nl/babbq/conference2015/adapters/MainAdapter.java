@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.adapters;
+package nl.babbq.conference2015.adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +13,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nl.droidcon.conference2014.R;
-import nl.droidcon.conference2014.objects.Conference;
+import nl.babbq.conference2015.R;
+import nl.babbq.conference2015.objects.Conference;
 
 /**
- * Adapter for the {@link nl.droidcon.conference2014.MainActivity},
+ * Adapter for the {@link nl.babbq.conference2015.MainActivity},
  * display either a Conference slot or a break.
  * @author Arnaud Camus
  */

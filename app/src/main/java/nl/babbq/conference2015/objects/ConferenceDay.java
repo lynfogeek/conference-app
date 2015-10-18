@@ -1,4 +1,4 @@
-package nl.droidcon.conference2014.objects;
+package nl.babbq.conference2015.objects;
 
 import java.io.Serializable;
 
