@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.droidcon.conference2014.adapters.HasAdapter;
 import nl.droidcon.conference2014.fragments.ListingFragment;
 import nl.droidcon.conference2014.objects.Conference;
 import nl.droidcon.conference2014.objects.ConferenceDay;
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.addFragment(ListingFragment.newInstance(mConferences, day1), getString(R.string.day, 1));
         mAdapter.addFragment(ListingFragment.newInstance(mConferences, day2), getString(R.string.day, 2));
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setPageMargin(Utils.dpToPx(8,getBaseContext()));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

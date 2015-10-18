@@ -96,11 +96,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ViewHolderConference)holder).location.setText(mData.get(position).getLocation());
             ((ViewHolderConference)holder).headline.setText(mData.get(position).getHeadeline());
 
-            ((ViewHolderConference)holder).favorite
-                    .setImageResource(mData.get(position).isFavorite(mContext)
-                        ? R.drawable.ic_favorite_grey600_18dp
-                        : R.drawable.ic_favorite_outline_grey600_18dp);
-
+            if (mData.get(position).isFavorite(mContext)) {
+                ((ViewHolderConference) holder).favorite.setVisibility(View.VISIBLE);
+                ((ViewHolderConference)holder).favorite
+                        .setImageResource(R.drawable.ic_favorite_grey600_18dp);
+            } else {
+                ((ViewHolderConference) holder).favorite.setVisibility(View.GONE);
+            }
         }
     }
 }

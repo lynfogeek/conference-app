@@ -20,7 +20,6 @@ import java.util.Locale;
 
 import nl.droidcon.conference2014.objects.Conference;
 import nl.droidcon.conference2014.utils.Utils;
-import nl.droidcon.conference2014.utils.WordColor;
 
 /**
  * Display the detail for one {@link Conference}
@@ -81,8 +80,6 @@ public class ConferenceActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.text)).setText(mConference.getText());
         ((TextView)findViewById(R.id.location)).setText(String.format(getString(R.string.location),
                 mConference.getLocation()));
-        ((TextView)findViewById(R.id.location)).setTextColor(
-                WordColor.generateColor(mConference.getLocation()));
         ((TextView)findViewById(R.id.date)).setText(
                 simpleDateFormat.format(new Date(mConference.getStartDate()))
                         + simpleDateFormat2.format(new Date(mConference.getEndDate())));
