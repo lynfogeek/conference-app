@@ -96,7 +96,7 @@ public class AboutActivity extends AppCompatActivity implements AdapterView.OnIt
                 break;
             case 3: //Open the feedback form
                 Intent i3 = new Intent(Intent.ACTION_VIEW);
-                i3.setData(Uri.parse("https://m.docs.google.com/forms/d/1KpwGcRarNoSa1J2-lZSqNSizuZDj2dSy2txg66FSpsQ/viewform"));
+                i3.setData(Uri.parse("https://docs.google.com/forms/d/1nliavYLhvnAg2CbobJYeOq0HJu6uVO4OxeR4ZqfYVS0/viewform"));
                 startActivity(i3);
                 break;
         }
