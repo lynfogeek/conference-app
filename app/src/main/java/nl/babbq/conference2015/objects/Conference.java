@@ -1,13 +1,31 @@
 package nl.babbq.conference2015.objects;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.opencsv.CSVReader;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
+import nl.babbq.conference2015.R;
 import nl.babbq.conference2015.utils.PreferenceManager;
+import nl.babbq.conference2015.utils.Utils;
 
 /**
  * Conference object, created by the CSV file
@@ -15,6 +33,12 @@ import nl.babbq.conference2015.utils.PreferenceManager;
  */
 public class Conference implements Serializable, Parcelable {
 
+    public static final String CONFERENCES = "conferences";
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT
+            = new SimpleDateFormat("d/M/yyy HH:mm:ss", Locale.ENGLISH);
+
+
+    private String[] CSVLine;
     private String startDate;
     private String endDate;
     private String headeline;
@@ -24,13 +48,16 @@ public class Conference implements Serializable, Parcelable {
     private String location;
 
     public Conference(@NonNull String[] fromCSV) {
+        CSVLine = fromCSV;
         startDate = fromCSV[0];
         endDate = fromCSV[1];
         headeline = fromCSV[2];
         location = fromCSV[9];
-        speaker = fromCSV[10];
-        speakerImageUrl = fromCSV[11];
-        text = fromCSV[12];
+        if (fromCSV.length > 10) {
+            speaker = fromCSV[10];
+            speakerImageUrl = fromCSV[11];
+            text = fromCSV[12];
+        }
     }
 
     /**
@@ -47,6 +74,65 @@ public class Conference implements Serializable, Parcelable {
                 .put(!actual)
                 .apply();
         return !actual;
+    }
+
+    /**
+     * Parse a inputStream reader and generate the list
+     * of {@link Conference}.
+     */
+    public static List<Conference> parseInputStream(Context context, InputStreamReader stream) {
+        List<Conference> conferences = new ArrayList<>();
+        try {
+            CSVReader reader = new CSVReader(stream, '\t');
+            reader.readNext(); // file headline
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine.length >= 12
+                        && !Utils.arrayContains(nextLine, context.getString(R.string.program_d2))) {
+                    conferences.add(new Conference(nextLine));
+                }
+            }
+            saveInPreferences(context, conferences);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return conferences;
+    }
+
+    public static List<Conference> loadFromPreferences(Context context) {
+        List<Conference> list = new ArrayList<>();
+        SharedPreferences prefs = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        Set<String> conferences = prefs.getStringSet(CONFERENCES, new HashSet<String>());
+        for (String conferenceLine: conferences) {
+            list.add(new Conference(conferenceLine.split("\t")));
+        }
+
+        Collections.sort(list, new Comparator<Conference>() {
+            @Override
+            public int compare(Conference conference, Conference conference2) {
+                try {
+                    return SIMPLE_DATE_FORMAT.parse(conference.startDate)
+                            .before(SIMPLE_DATE_FORMAT.parse(conference2.startDate)) ? -1 : 1;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+        return list;
+    }
+
+    private static void saveInPreferences(Context context, List<Conference> conferences) {
+        SharedPreferences.Editor prefsEditor
+                = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit();
+        Set<String> stringSet = new HashSet<>();
+        for (Conference conference: conferences) {
+            stringSet.add(TextUtils.join("\t", conference.getCSVLine()));
+        }
+        prefsEditor.putStringSet(CONFERENCES, stringSet);
+        prefsEditor.apply();
     }
 
     //////////////////////////////////////
@@ -117,6 +203,8 @@ public class Conference implements Serializable, Parcelable {
         this.text = text;
     }
 
+    public String[] getCSVLine() { return this.CSVLine; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -124,6 +212,7 @@ public class Conference implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(this.CSVLine);
         dest.writeString(this.startDate);
         dest.writeString(this.endDate);
         dest.writeString(this.headeline);
@@ -134,6 +223,8 @@ public class Conference implements Serializable, Parcelable {
     }
 
     protected Conference(Parcel in) {
+        CSVLine = new String[13];
+        in.readStringArray(this.CSVLine);
         this.startDate = in.readString();
         this.endDate = in.readString();
         this.headeline = in.readString();

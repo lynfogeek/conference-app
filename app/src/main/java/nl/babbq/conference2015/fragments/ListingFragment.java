@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.babbq.conference2015.ConferenceActivity;
+import nl.babbq.conference2015.MainActivity;
 import nl.babbq.conference2015.R;
 import nl.babbq.conference2015.adapters.HasAdapter;
 import nl.babbq.conference2015.adapters.MainAdapter;
@@ -34,19 +35,17 @@ import nl.babbq.conference2015.utils.Utils;
 public class ListingFragment extends Fragment implements HasAdapter {
 
     private final static String DATA = "data";
+    private final static String DAY = "day";
 
     private RecyclerView mRecyclerView;
-    private List<Conference> mData;
+    private List<Conference> mData = new ArrayList<>();
+    private ConferenceDay mDay;
     private MainAdapter mAdapter;
 
     public static ListingFragment newInstance(ArrayList<Conference> conferences, final ConferenceDay day) {
         Bundle args = new Bundle();
-        Predicate<Conference> aDay = new Predicate<Conference>() {
-            public boolean apply(Conference conference) {
-                return conference.getStartDate().startsWith(day.getDay());
-            }
-        };
-        args.putParcelableArrayList(DATA, (ArrayList<? extends Parcelable>) Utils.filter(conferences, aDay));
+        args.putParcelableArrayList(DATA, filterList(conferences, day));
+        args.putSerializable(DAY, day);
         ListingFragment fragment = new ListingFragment();
         fragment.setArguments(args);
         return fragment;
@@ -59,7 +58,10 @@ public class ListingFragment extends Fragment implements HasAdapter {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        mData = getArguments().getParcelableArrayList(DATA);
+        if (getArguments() != null) {
+            mDay = (ConferenceDay) getArguments().getSerializable(DAY);
+            mData.addAll(getArguments().<Conference>getParcelableArrayList(DATA));
+        }
     }
 
     @Override
@@ -102,8 +104,25 @@ public class ListingFragment extends Fragment implements HasAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        if (mAdapter != null) {
+        if (isAdded() && mAdapter != null) {
+            if (getActivity() instanceof MainActivity) {
+                ArrayList<Conference> newList = filterList(
+                            ((MainActivity)getActivity()).getConferences(), mDay);
+                if (newList != null) {
+                    mData.clear();
+                    mData.addAll(newList);
+                }
+            }
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    private static ArrayList<Conference> filterList(ArrayList<Conference> list, final ConferenceDay day) {
+        Predicate<Conference> aDay = new Predicate<Conference>() {
+            public boolean apply(Conference conference) {
+                return conference.getStartDate().startsWith(day.getDay());
+            }
+        };
+        return Utils.filter(list, aDay);
     }
 }

@@ -17,16 +17,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
-import com.opencsv.CSVReader;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import nl.babbq.conference2015.fragments.ListingFragment;
+import nl.babbq.conference2015.network.TSVRequest;
+import nl.babbq.conference2015.network.VolleySingleton;
 import nl.babbq.conference2015.objects.Conference;
 import nl.babbq.conference2015.objects.ConferenceDay;
 import nl.babbq.conference2015.utils.PreferenceManager;
@@ -38,16 +38,19 @@ import nl.babbq.conference2015.utils.Utils;
  * Main activity of the application, list all conferences slots into a listView
  * @author Arnaud Camus
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Response.Listener<List<Conference>>, Response.ErrorListener {
 
-    private final static String SCHEDULE_FILENAME = "timeline.tsv";
     public static final String CONFERENCES = "conferences";
+    public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
 
     private MainPagerAdapter mAdapter;
     private ViewPager mViewPager;
     private ArrayList<Conference> mConferences = new ArrayList<>();
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
+
+    private VolleySingleton mVolley;
+    private boolean isLoading = false;
 
     /**
      * Enable to share views across activities with animation
@@ -80,12 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             // Restore value of members from saved state
-            mConferences = savedInstanceState.getParcelableArrayList(CONFERENCES);
+            mConferences.addAll(savedInstanceState.<Conference>getParcelableArrayList(CONFERENCES));
         } else {
-            readCalendar();
+            mConferences.addAll(Conference.loadFromPreferences(this));
         }
-
         setupViewPager();
+        initVolley(this);
+        update();
         trackOpening();
     }
 
@@ -111,32 +115,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.addFragment(ListingFragment.newInstance(mConferences, day1), getString(R.string.day, 1));
         mAdapter.addFragment(ListingFragment.newInstance(mConferences, day2), getString(R.string.day, 2));
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageMargin(Utils.dpToPx(8,getBaseContext()));
+        mViewPager.setPageMargin(Utils.dpToPx(8, getBaseContext()));
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    /**
-     * Open and read the asset SCHEDULE_FILENAME and generate the list
-     * of {@link Conference}.
-     */
-    private void readCalendar() {
-        try {
-            mConferences.clear();
-            InputStream is = getAssets().open(SCHEDULE_FILENAME);
-            CSVReader reader = new CSVReader(new InputStreamReader(is), '\t');
-            reader.readNext(); // file headline
-            String [] nextLine;
-            while ((nextLine = reader.readNext()) != null) {
-                if (nextLine.length >= 12
-                        && !Utils.arrayContains(nextLine, getString(R.string.program_d2))) {
-                    mConferences.add(new Conference(nextLine));
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -155,6 +135,30 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mVolley.stop();
+        //onUpdateDone();
+    }
+
+    private void initVolley(Context context) {
+        if (mVolley == null) {
+            mVolley = VolleySingleton.getInstance(context);
+        }
+    }
+
+    private void update() {
+        if (!isLoading()) {
+            mVolley.addToRequestQueue(new TSVRequest(this, Request.Method.GET, URL, this, this));
+            isLoading = true;
+        }
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
     /**
      * Track how many times the Activity is launched and
      * send a push notification {@link nl.babbq.conference2015.utils.SendNotification}
@@ -171,6 +175,28 @@ public class MainActivity extends AppCompatActivity {
         if (nb == 10) {
             SendNotification.feedbackForm(this);
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        error.printStackTrace();
+        onUpdateDone();
+    }
+
+    @Override
+    public void onResponse(List<Conference> response) {
+        mConferences.clear();
+        mConferences.addAll(response);
+        mAdapter.notifyDataSetChanged(); //might not work
+        onUpdateDone();
+    }
+
+    private void onUpdateDone() {
+        isLoading = false;
+    }
+
+    public ArrayList<Conference> getConferences() {
+        return mConferences;
     }
 
     private final class MainPagerAdapter extends FragmentPagerAdapter {
