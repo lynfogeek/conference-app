@@ -15,6 +15,14 @@ import java.util.Collection;
  * @author Arnaud Camus
  */
 public class Utils {
+    public static double getScreenDiagonal(final Context ctx) {
+        if (ctx==null || ctx.getResources() == null) {
+            return 0;
+        }
+        DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
+        return Math.sqrt(Math.pow(displayMetrics.heightPixels, 2)
+                + Math.pow(displayMetrics.widthPixels, 2));
+    }
 
     public static int dpToPx(int dp, final Context ctx) {
         if (ctx==null || ctx.getResources() == null) {
@@ -40,7 +48,6 @@ public class Utils {
         }
         return false;
     }
-
 
     public static <T> ArrayList<T> filter(Collection<T> target, Predicate<T> predicate) {
         ArrayList<T> result = new ArrayList<T>();

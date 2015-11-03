@@ -1,5 +1,6 @@
 package nl.babbq.conference2015;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,6 +40,7 @@ import nl.babbq.conference2015.objects.Conference;
 import nl.babbq.conference2015.objects.ConferenceDay;
 import nl.babbq.conference2015.utils.PreferenceManager;
 import nl.babbq.conference2015.utils.SendNotification;
+import nl.babbq.conference2015.utils.SimpleAnimatorListener;
 import nl.babbq.conference2015.utils.Utils;
 
 
@@ -38,7 +48,10 @@ import nl.babbq.conference2015.utils.Utils;
  * Main activity of the application, list all conferences slots into a listView
  * @author Arnaud Camus
  */
-public class MainActivity extends AppCompatActivity implements Response.Listener<List<Conference>>, Response.ErrorListener {
+public class MainActivity extends AppCompatActivity
+        implements Response.Listener<List<Conference>>,
+            Response.ErrorListener,
+            View.OnClickListener {
 
     public static final String CONFERENCES = "conferences";
     public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
@@ -48,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     private ArrayList<Conference> mConferences = new ArrayList<>();
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
+    private ImageView mRefresh;
+    private FrameLayout mLoadingFrame;
 
     private VolleySingleton mVolley;
     private boolean isLoading = false;
@@ -75,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mLoadingFrame = (FrameLayout) findViewById(R.id.loadingFrame);
+        mRefresh = (ImageView) findViewById(R.id.refreshButton);
+        mRefresh.setOnClickListener(this);
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -89,7 +107,12 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         }
         setupViewPager();
         initVolley(this);
-        update();
+        mRefresh.post(new Runnable() {
+            @Override
+            public void run() {
+                update();
+            }
+        });
         trackOpening();
     }
 
@@ -137,9 +160,11 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onPause() {
-        super.onPause();
+        if (isLoading) {
+            onUpdateDone();
+        }
         mVolley.stop();
-        //onUpdateDone();
+        super.onPause();
     }
 
     private void initVolley(Context context) {
@@ -152,7 +177,35 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         if (!isLoading()) {
             mVolley.addToRequestQueue(new TSVRequest(this, Request.Method.GET, URL, this, this));
             isLoading = true;
+            animateLoading();
         }
+    }
+
+    private void animateLoading() {
+        if (Utils.isLollipop()) {
+            Animator anim = ViewAnimationUtils.createCircularReveal(mLoadingFrame,
+                    mRefresh.getRight() - Utils.dpToPx(12, getBaseContext()),
+                    mRefresh.getTop() + Utils.dpToPx(12, getBaseContext()),
+                    Utils.dpToPx(10, getBaseContext()),
+                    (float) Utils.getScreenDiagonal(getBaseContext()));
+            anim.setDuration(300);
+            anim.addListener(new SimpleAnimatorListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                public void onAnimationStart(Animator animator) {
+                    mLoadingFrame.setVisibility(View.VISIBLE);
+                }
+            });
+            anim.start();
+        } else {
+            final Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setInterpolator(new DecelerateInterpolator());
+            fadeIn.setDuration(300);
+            mLoadingFrame.setVisibility(View.VISIBLE);
+            mLoadingFrame.startAnimation(fadeIn);
+        }
+
+        mRefresh.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
+        mRefresh.setEnabled(false);
     }
 
     public boolean isLoading() {
@@ -193,10 +246,21 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     private void onUpdateDone() {
         isLoading = false;
+        mRefresh.setEnabled(true);
+        mLoadingFrame.setVisibility(View.GONE);
+        mRefresh.getAnimation().cancel();
     }
 
     public ArrayList<Conference> getConferences() {
         return mConferences;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (isLoading) {
+            return;
+        }
+        update();
     }
 
     private final class MainPagerAdapter extends FragmentPagerAdapter {
