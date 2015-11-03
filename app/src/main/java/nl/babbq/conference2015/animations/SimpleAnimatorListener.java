@@ -1,4 +1,4 @@
-package nl.babbq.conference2015.utils;
+package nl.babbq.conference2015.animations;
 
 import android.animation.Animator;
 
