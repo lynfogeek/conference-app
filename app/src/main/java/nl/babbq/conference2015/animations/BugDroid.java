@@ -2,6 +2,7 @@ package nl.babbq.conference2015.animations;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -40,6 +41,7 @@ public class BugDroid implements View.OnClickListener {
     public void stopAnimation() {
         mRefreshButton.setEnabled(true);
         mLoadingFrame.setVisibility(View.GONE);
+        mLoadingFrame.setBackgroundColor(Color.WHITE);
         mRefreshButton.getAnimation().cancel();
         if (mCheckAnimation != null) {
             mBugDroid.removeCallbacks(mCheckAnimation);
@@ -56,7 +58,7 @@ public class BugDroid implements View.OnClickListener {
                     mRefreshButton.getTop() + twelve,
                     twelve,
                     (float) Utils.getScreenDiagonal(mRefreshButton.getContext()));
-            anim.setDuration(1000);
+            anim.setDuration(500);
             anim.addListener(new SimpleAnimatorListener() {
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 public void onAnimationStart(Animator animator) {
@@ -96,13 +98,44 @@ public class BugDroid implements View.OnClickListener {
             @Override
             public void run() {
                 if (!isLoading()) {
-                    stopAnimation();
+                    if (Utils.isLollipop()) {
+                        hideAnimation();
+                    } else { //simply finishes the animation without being fancy
+                        stopAnimation();
+                    }
                 } else {
                     renewAnimation();
                 }
             }
         };
-        mBugDroid.postDelayed(mCheckAnimation, 300);
+        mBugDroid.postDelayed(mCheckAnimation, 400);
+    }
+
+    private void hideAnimation() {
+        if (Utils.isLollipop()) {
+            int smallBugDroid = Utils.dpToPx(100, mRefreshButton.getContext());
+            Animator anim = ViewAnimationUtils.createCircularReveal(mLoadingFrame,
+                    Utils.getScreenWidth(mRefreshButton.getContext()) / 2,
+                    Utils.getScreenHeight(mRefreshButton.getContext()) / 2,
+                    (float) Utils.getScreenDiagonal(mRefreshButton.getContext()),
+                    smallBugDroid);
+            anim.setDuration(600);
+            anim.addListener(new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoadingFrame.setBackgroundColor(Color.TRANSPARENT);
+                    Animation outAnimation = AnimationUtils.loadAnimation(mRefreshButton.getContext(), R.anim.fades_out_slides_up);
+                    outAnimation.setAnimationListener(new SimpleAnimationListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            stopAnimation();
+                        }
+                    });
+                    mBugDroid.startAnimation(outAnimation);
+                }
+            });
+            anim.start();
+        }
     }
 
     @Override

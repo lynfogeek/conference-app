@@ -212,6 +212,7 @@ public class Conference implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.CSVLine.length);
         dest.writeStringArray(this.CSVLine);
         dest.writeString(this.startDate);
         dest.writeString(this.endDate);
@@ -223,7 +224,7 @@ public class Conference implements Serializable, Parcelable {
     }
 
     protected Conference(Parcel in) {
-        CSVLine = new String[13];
+        CSVLine = new String[in.readInt()];
         in.readStringArray(this.CSVLine);
         this.startDate = in.readString();
         this.endDate = in.readString();

@@ -16,16 +16,29 @@ import java.util.Collection;
  */
 public class Utils {
     public static double getScreenDiagonal(final Context ctx) {
-        if (ctx==null || ctx.getResources() == null) {
+        if (ctx == null || ctx.getResources() == null) {
             return 0;
         }
         DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
         return Math.sqrt(Math.pow(displayMetrics.heightPixels, 2)
                 + Math.pow(displayMetrics.widthPixels, 2));
     }
-
+    public static int getScreenWidth(final Context ctx) {
+        if (ctx == null || ctx.getResources() == null) {
+            return 0;
+        }
+        DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
+    public static int getScreenHeight(final Context ctx) {
+        if (ctx == null || ctx.getResources() == null) {
+            return 0;
+        }
+        DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
+        return displayMetrics.heightPixels;
+    }
     public static int dpToPx(int dp, final Context ctx) {
-        if (ctx==null || ctx.getResources() == null) {
+        if (ctx == null || ctx.getResources() == null) {
             return 0;
         }
         DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
@@ -33,7 +46,7 @@ public class Utils {
     }
 
     public static int pxToDp(int px, final Context ctx) {
-        if (ctx==null || ctx.getResources() == null) {
+        if (ctx == null || ctx.getResources() == null) {
             return 0;
         }
         DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
