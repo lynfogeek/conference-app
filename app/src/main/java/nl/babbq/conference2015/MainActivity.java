@@ -96,12 +96,14 @@ public class MainActivity extends AppCompatActivity
         }
         setupViewPager();
         initVolley(this);
-        mToolbar.post(new Runnable() {
-            @Override
-            public void run() {
-                update();
-            }
-        });
+        if (mConferences.size() == 0) {
+            mToolbar.post(new Runnable() {
+                @Override
+                public void run() {
+                    update();
+                }
+            });
+        }
         trackOpening();
     }
 
@@ -149,9 +151,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onPause() {
-        if (mAnimatedBugDroid.isLoading()) {
-            mAnimatedBugDroid.stopAnimation();
-        }
+        mAnimatedBugDroid.stopAnimation();
         mVolley.stop();
         super.onPause();
     }

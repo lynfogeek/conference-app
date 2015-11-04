@@ -29,6 +29,7 @@ public class BugDroid implements View.OnClickListener {
 
     private Runnable mCheckAnimation;
     private boolean mLoading = false;
+    private boolean isAnimating = false;
 
 
     public BugDroid(@NonNull ImageView bugDroid, @NonNull View loadingFrame, @NonNull View refreshButton) {
@@ -42,7 +43,10 @@ public class BugDroid implements View.OnClickListener {
         mRefreshButton.setEnabled(true);
         mLoadingFrame.setVisibility(View.GONE);
         mLoadingFrame.setBackgroundColor(Color.WHITE);
-        mRefreshButton.getAnimation().cancel();
+        if (mRefreshButton.getAnimation() != null) {
+            mRefreshButton.getAnimation().cancel();
+        }
+        isAnimating = false;
         if (mCheckAnimation != null) {
             mBugDroid.removeCallbacks(mCheckAnimation);
             mCheckAnimation = null;
@@ -50,6 +54,7 @@ public class BugDroid implements View.OnClickListener {
     }
 
     public void startAnimation() {
+        isAnimating = true;
         mRefreshButton.setEnabled(false);
         if (Utils.isLollipop()) {
             int twelve = Utils.dpToPx(12, mRefreshButton.getContext()); //totally arbitrary ;)
@@ -98,11 +103,7 @@ public class BugDroid implements View.OnClickListener {
             @Override
             public void run() {
                 if (!isLoading()) {
-                    if (Utils.isLollipop()) {
-                        hideAnimation();
-                    } else { //simply finishes the animation without being fancy
-                        stopAnimation();
-                    }
+                    hideOrStop();
                 } else {
                     renewAnimation();
                 }
@@ -140,11 +141,18 @@ public class BugDroid implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (!isLoading()) {
+        if (!isAnimating) {
             startAnimation();
         }
     }
 
+    private void hideOrStop() {
+        if (Utils.isLollipop()) {
+            hideAnimation();
+        } else { //simply finishes the animation without being fancy
+            stopAnimation();
+        }
+    }
 
     ///////////////////////
     //  Getter / setter  //
