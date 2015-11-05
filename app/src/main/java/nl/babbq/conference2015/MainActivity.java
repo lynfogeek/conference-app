@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPause() {
         mAnimatedBugDroid.stopAnimation();
-        mVolley.stop();
         super.onPause();
     }
 
@@ -211,6 +210,15 @@ public class MainActivity extends AppCompatActivity
 
     private void onUpdateDone() {
         mAnimatedBugDroid.setLoading(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mAnimatedBugDroid != null && mAnimatedBugDroid.isAnimating()) {
+            mAnimatedBugDroid.setLoading(false);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public ArrayList<Conference> getConferences() {

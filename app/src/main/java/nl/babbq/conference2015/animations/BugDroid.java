@@ -34,8 +34,7 @@ public class BugDroid implements View.OnClickListener {
     private OnRefreshClickListener mListener;
     private Runnable mCheckAnimation;
     private boolean mLoading = false;
-    private boolean isAnimating = false;
-
+    private boolean mIsAnimating = false;
 
     public BugDroid(@NonNull ImageView bugDroid,
                     @NonNull View loadingFrame,
@@ -55,7 +54,7 @@ public class BugDroid implements View.OnClickListener {
         if (mRefreshButton.getAnimation() != null) {
             mRefreshButton.getAnimation().cancel();
         }
-        isAnimating = false;
+        mIsAnimating = false;
         if (mCheckAnimation != null) {
             mBugDroid.removeCallbacks(mCheckAnimation);
             mCheckAnimation = null;
@@ -63,7 +62,7 @@ public class BugDroid implements View.OnClickListener {
     }
 
     public void startAnimation() {
-        isAnimating = true;
+        mIsAnimating = true;
         mRefreshButton.setEnabled(false);
         if (Utils.isLollipop()) {
             int twelve = Utils.dpToPx(12, mRefreshButton.getContext()); //totally arbitrary ;)
@@ -150,7 +149,7 @@ public class BugDroid implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (!isAnimating) {
+        if (!mIsAnimating) {
             mListener.onRefreshClick();
             startAnimation();
         }
@@ -199,4 +198,9 @@ public class BugDroid implements View.OnClickListener {
     public void setLoading(boolean loading) {
         mLoading = loading;
     }
+
+    public boolean isAnimating() {
+        return mIsAnimating;
+    }
+
 }

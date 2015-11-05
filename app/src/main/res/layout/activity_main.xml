@@ -65,6 +65,7 @@
         android:layout_height="match_parent"
         android:id="@+id/loadingFrame"
         android:visibility="gone"
+        android:clickable="true"
         android:background="@android:color/white">
         <ImageView
             android:layout_width="200dp"
