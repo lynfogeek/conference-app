@@ -23,20 +23,29 @@ import nl.babbq.conference2015.utils.Utils;
  */
 public class BugDroid implements View.OnClickListener {
 
+    public interface OnRefreshClickListener {
+        public void onRefreshClick();
+    }
+
     private ImageView mBugDroid;
     private View mLoadingFrame;
     private View mRefreshButton;
 
+    private OnRefreshClickListener mListener;
     private Runnable mCheckAnimation;
     private boolean mLoading = false;
     private boolean isAnimating = false;
 
 
-    public BugDroid(@NonNull ImageView bugDroid, @NonNull View loadingFrame, @NonNull View refreshButton) {
+    public BugDroid(@NonNull ImageView bugDroid,
+                    @NonNull View loadingFrame,
+                    @NonNull View refreshButton,
+                    @NonNull OnRefreshClickListener listener) {
         mBugDroid = bugDroid;
         mLoadingFrame = loadingFrame;
         mRefreshButton = refreshButton;
         mRefreshButton.setOnClickListener(this);
+        mListener = listener;
     }
 
     public void stopAnimation() {
@@ -142,6 +151,7 @@ public class BugDroid implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (!isAnimating) {
+            mListener.onRefreshClick();
             startAnimation();
         }
     }

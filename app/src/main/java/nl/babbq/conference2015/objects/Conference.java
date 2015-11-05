@@ -52,11 +52,16 @@ public class Conference implements Serializable, Parcelable {
         startDate = fromCSV[0];
         endDate = fromCSV[1];
         headeline = fromCSV[2];
-        location = fromCSV[9];
-        if (fromCSV.length > 10) {
+        if (fromCSV.length > 12) {
+            location = fromCSV[9];
             speaker = fromCSV[10];
             speakerImageUrl = fromCSV[11];
             text = fromCSV[12];
+        } else {
+            location = "";
+            speaker = "";
+            speakerImageUrl = "";
+            text = "";
         }
     }
 
@@ -87,8 +92,7 @@ public class Conference implements Serializable, Parcelable {
             reader.readNext(); // file headline
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
-                if (nextLine.length >= 12
-                        && !Utils.arrayContains(nextLine, context.getString(R.string.program_d2))) {
+                if (nextLine.length > 1 && !Utils.arrayContains(nextLine, context.getString(R.string.program_d2))) {
                     conferences.add(new Conference(nextLine));
                 }
             }

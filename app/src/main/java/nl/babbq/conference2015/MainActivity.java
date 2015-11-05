@@ -42,7 +42,8 @@ import nl.babbq.conference2015.utils.Utils;
  */
 public class MainActivity extends AppCompatActivity
         implements Response.Listener<List<Conference>>,
-            Response.ErrorListener {
+            Response.ErrorListener,
+            BugDroid.OnRefreshClickListener {
 
     public static final String CONFERENCES = "conferences";
     public static final String URL = "https://docs.google.com/spreadsheets/d/1a6UtL_YiKu2j6TgrnhpPcxfwuFX69Ht_UMOzdcb08Zs/pub?gid=0&single=true&output=tsv";
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mAnimatedBugDroid = new BugDroid((ImageView)findViewById(R.id.bugDroid),
                 findViewById(R.id.loadingFrame),
-                findViewById(R.id.refreshButton));
+                findViewById(R.id.refreshButton),
+                this);
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -160,6 +162,11 @@ public class MainActivity extends AppCompatActivity
         if (mVolley == null) {
             mVolley = VolleySingleton.getInstance(context);
         }
+    }
+
+    @Override
+    public void onRefreshClick() {
+        update();
     }
 
     private void update() {
