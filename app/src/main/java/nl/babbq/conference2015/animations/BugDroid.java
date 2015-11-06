@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
+import java.util.Random;
+
 import nl.babbq.conference2015.R;
 import nl.babbq.conference2015.utils.Utils;
 
@@ -24,8 +26,13 @@ import nl.babbq.conference2015.utils.Utils;
 public class BugDroid implements View.OnClickListener {
 
     public interface OnRefreshClickListener {
-        public void onRefreshClick();
+        void onRefreshClick();
     }
+
+    public static final int[] ANIMATED_DRAWABLES = {
+            R.drawable.animated_android_shrug,
+            R.drawable.animated_android_wave
+    };
 
     private ImageView mBugDroid;
     private View mLoadingFrame;
@@ -65,6 +72,8 @@ public class BugDroid implements View.OnClickListener {
         mIsAnimating = true;
         mRefreshButton.setEnabled(false);
         if (Utils.isLollipop()) {
+            mBugDroid.setImageResource(ANIMATED_DRAWABLES[new Random().nextInt(2)]);
+
             int twelve = Utils.dpToPx(12, mRefreshButton.getContext()); //totally arbitrary ;)
             Animator anim = ViewAnimationUtils.createCircularReveal(mLoadingFrame,
                     mRefreshButton.getRight() - twelve,
