@@ -100,6 +100,9 @@ public class BugDroid implements View.OnClickListener {
 
             });
             anim.start();
+            Animation fadeAnimation = new AlphaAnimation(1, 0);
+            fadeAnimation.setFillAfter(true);
+            mTabView.startAnimation(fadeAnimation);
         } else {
             final Animation fadeIn = new AlphaAnimation(0, 1);
             fadeIn.setInterpolator(new DecelerateInterpolator());
@@ -115,9 +118,6 @@ public class BugDroid implements View.OnClickListener {
         }
         mRefreshButton.startAnimation(
                 AnimationUtils.loadAnimation(mRefreshButton.getContext(), R.anim.rotation));
-        Animation fadeAnimation = new AlphaAnimation(1, 0);
-        fadeAnimation.setFillAfter(true);
-        mTabView.startAnimation(fadeAnimation);
         Drawable drawable = mBugDroid.getDrawable();
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
@@ -162,10 +162,10 @@ public class BugDroid implements View.OnClickListener {
                 }
             });
             anim.start();
+            Animation fadeAnimation = new AlphaAnimation(0, 1);
+            fadeAnimation.setFillAfter(true);
+            mTabView.startAnimation(fadeAnimation);
         }
-        Animation fadeAnimation = new AlphaAnimation(0, 1);
-        fadeAnimation.setFillAfter(true);
-        mTabView.startAnimation(fadeAnimation);
     }
 
     @Override
