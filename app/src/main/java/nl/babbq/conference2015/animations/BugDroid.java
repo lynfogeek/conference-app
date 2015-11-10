@@ -58,6 +58,8 @@ public class BugDroid implements View.OnClickListener {
     }
 
     public void stopAnimation() {
+        mIsAnimating = false;
+        mLoading = false;
         mRefreshButton.setEnabled(true);
         mLoadingFrame.setVisibility(View.GONE);
         mLoadingFrame.setBackgroundColor(Color.WHITE);
@@ -128,6 +130,7 @@ public class BugDroid implements View.OnClickListener {
         mCheckAnimation = new Runnable() {
             @Override
             public void run() {
+                if (!isAnimating() && !isLoading()) { return; }
                 if (!isLoading()) {
                     hideOrStop();
                 } else {
