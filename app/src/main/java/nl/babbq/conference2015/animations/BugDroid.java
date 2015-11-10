@@ -37,6 +37,7 @@ public class BugDroid implements View.OnClickListener {
     private ImageView mBugDroid;
     private View mLoadingFrame;
     private View mRefreshButton;
+    private View mTabView;
 
     private OnRefreshClickListener mListener;
     private Runnable mCheckAnimation;
@@ -46,10 +47,12 @@ public class BugDroid implements View.OnClickListener {
     public BugDroid(@NonNull ImageView bugDroid,
                     @NonNull View loadingFrame,
                     @NonNull View refreshButton,
+                    @NonNull View tabView,
                     @NonNull OnRefreshClickListener listener) {
         mBugDroid = bugDroid;
         mLoadingFrame = loadingFrame;
         mRefreshButton = refreshButton;
+        mTabView = tabView;
         mRefreshButton.setOnClickListener(this);
         mListener = listener;
     }
@@ -60,6 +63,10 @@ public class BugDroid implements View.OnClickListener {
         mLoadingFrame.setBackgroundColor(Color.WHITE);
         if (mRefreshButton.getAnimation() != null) {
             mRefreshButton.getAnimation().cancel();
+        }
+        if (mTabView.getAnimation() != null) {
+            mTabView.getAnimation().cancel();
+            mTabView.setAlpha(1f);
         }
         mIsAnimating = false;
         if (mCheckAnimation != null) {
@@ -108,7 +115,9 @@ public class BugDroid implements View.OnClickListener {
         }
         mRefreshButton.startAnimation(
                 AnimationUtils.loadAnimation(mRefreshButton.getContext(), R.anim.rotation));
-
+        Animation fadeAnimation = new AlphaAnimation(1, 0);
+        fadeAnimation.setFillAfter(true);
+        mTabView.startAnimation(fadeAnimation);
         Drawable drawable = mBugDroid.getDrawable();
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
@@ -154,6 +163,9 @@ public class BugDroid implements View.OnClickListener {
             });
             anim.start();
         }
+        Animation fadeAnimation = new AlphaAnimation(0, 1);
+        fadeAnimation.setFillAfter(true);
+        mTabView.startAnimation(fadeAnimation);
     }
 
     @Override

@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         mAnimatedBugDroid = new BugDroid((ImageView)findViewById(R.id.bugDroid),
                 findViewById(R.id.loadingFrame),
                 findViewById(R.id.refreshButton),
+                mTabLayout,
                 this);
 
         if (mToolbar != null) {
