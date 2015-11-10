@@ -2,55 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingRight="16dp">
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_launcher"
-        android:id="@+id/image"
-        android:transitionName="@string/image"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        />
+    android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dateStart"
-        android:textSize="14sp"
-        android:padding="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="72dp" />
+        style="@style/textStyle"
+        android:padding="0dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/location"
-        android:textSize="14sp"
         android:padding="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_toRightOf="@+id/dateStart"/>
+        style="@style/textStyle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/headline"
         android:transitionName="@string/headline"
+        android:textColor="@color/textColorSecondary"
         android:textSize="20sp"
-        android:layout_below="@+id/dateStart"
-        android:layout_marginLeft="72dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/dateStart" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/speaker"
-        android:transitionName="@string/speaker"
-        android:textSize="14sp"
-        android:layout_below="@+id/headline"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="72dp" />
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"

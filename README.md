@@ -1,7 +1,7 @@
-droidconNL-2014
+Conference Application
 ===============
 
-Simple conference app made for the Droidcon NL 2014. Displays the list of talks and details about them: speaker, description, room, etc.
+Simple conference app made for various conferences. Displays the list of talks and details about them: speaker, description, room, etc.
 
 
 ## Material Design
@@ -9,7 +9,7 @@ Simple conference app made for the Droidcon NL 2014. Displays the list of talks 
 The app tends to follow the [Material Design guidelines](http://www.google.com/design/spec/material-design/introduction.html) from Google.
 The app supports devices running from Android 4.0+ to Android 5.0 Lollipop.
 
-![App screenshot](https://github.com/lynfogeek/droidconNL-2014/blob/master/graphic/screenshot_readme.png) 
+<img src="https://github.com/lynfogeek/droidconNL-2014/blob/babbq/graphic/home.png?raw=true" alt="Screenshot 1" width="350px" ><img src="https://github.com/lynfogeek/droidconNL-2014/blob/babbq/graphic/talk.png?raw=true" alt="Screenshot 2" width="350px"> 
 
 ## Features
 
@@ -23,13 +23,14 @@ The app contains:
 And you can also:
  * Navigate to the conference site
  * Give feedback on the organization
+ * Press the refresh button to look again at the VectorDrawable animations
 
  
 ## APK
 
-The APK can be found on the Google Play:
+The APK buid for the Big Android BBQ Europe 2015 can be found on the Google Play:
 
-<a href="https://play.google.com/store/apps/details?id=nl.droidcon.conference2014">
+<a href="https://play.google.com/store/apps/details?id=nl.babbq.conference2015">
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
 </a>

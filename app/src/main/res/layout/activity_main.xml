@@ -1,26 +1,81 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/main_content"
+    android:background="@android:color/white">
 
-
-    <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:id="@+id/toolbar"
-        android:icon="@drawable/ic_launcher"
-        android:paddingLeft="72dp"
-        android:transitionName="@string/toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimary"/>
+        android:fitsSystemWindows="true">
 
-    <ListView
+        <android.support.v7.widget.Toolbar
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:id="@+id/toolbar"
+            android:elevation="4dp"
+            android:transitionName="@string/toolbar"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="24sp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:tabTextColor="#AFFF"
+                app:tabSelectedTextColor="#FFF"
+                app:tabIndicatorColor="#FFF"
+                app:tabIndicatorHeight="2dp"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/refreshButton"
+                android:src="@drawable/ic_refresh"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/listView"
-        android:background="@color/windowBackground"/>
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</RelativeLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loadingFrame"
+        android:visibility="gone"
+        android:clickable="true"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bugDroid"
+            android:background="@drawable/white_circle"
+            android:src="@drawable/animated_android"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

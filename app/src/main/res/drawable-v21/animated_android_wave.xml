@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:drawable="@drawable/android">
+
+    <target
+        android:animation="@animator/scale_slow"
+        android:name="right_eye" />
+    <target
+        android:animation="@animator/scale_slow"
+        android:name="left_eye" />
+
+    <target
+        android:animation="@animator/wave_right_arm"
+        android:name="right_arm" />
+</animated-vector>

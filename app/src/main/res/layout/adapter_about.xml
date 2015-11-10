@@ -19,8 +19,8 @@
         android:id="@+id/title"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="72dp"
         android:layout_marginLeft="72dp" />
 
     <TextView
@@ -29,8 +29,8 @@
         android:id="@+id/subtitle"
         android:textSize="14sp"
         android:layout_below="@+id/title"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginStart="72dp"
         android:layout_marginLeft="72dp" />
 
 </RelativeLayout>

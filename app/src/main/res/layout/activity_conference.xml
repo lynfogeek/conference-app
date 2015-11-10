@@ -1,65 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/container"
+    android:background="@android:color/white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:transitionName="@string/toolbar">
-        <RelativeLayout
+        android:id="@+id/app_bar"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:layout_alignBottom="@+id/headline"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/droidcon_windmolen"
-                android:alpha="0.2"
-                />
-
-            <TextView
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:transitionName="@string/toolbar"
+            app:layout_scrollFlags="scroll">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="24sp"
-                android:gravity="bottom"
-                android:paddingLeft="16dp"
-                android:paddingBottom="16dp"
-                android:paddingRight="16dp"
-                android:transitionName="@string/headline"
-                android:textColor="@color/textColorPrimary"
-                android:id="@+id/headline"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize">
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignBottom="@+id/headline"
+                    android:src="@drawable/droidcon_windmolen"
+                    android:alpha="0.2"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp"
+                    android:transitionName="@string/headline"
+                    android:textColor="@color/textColorPrimary"
+                    android:id="@+id/headline"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_below="@+id/toolbar">
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="nl.droidcon.conference2014.ConferenceActivity">
+            android:padding="16dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text"
-                android:visibility="invisible"
                 android:layout_below="@+id/dascription"
                 android:layout_marginBottom="16dp"
                 android:lineSpacingExtra="2dp"
-                android:paddingLeft="72dp"
                 android:paddingBottom="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
                 android:textSize="14sp"/>
 
             <TextView
@@ -67,8 +69,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="72dp"
-                android:background="@color/windowBackground"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 />
@@ -79,8 +79,6 @@
                 android:id="@+id/location"
                 android:layout_toRightOf="@+id/date"
                 android:layout_marginTop="8dp"
-                android:paddingRight="16dp"
-                android:background="@color/windowBackground"
                 android:textSize="14sp"
                 />
 
@@ -91,9 +89,6 @@
                 android:text="@string/text_title"
                 android:layout_below="@+id/location"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="72dp"
-                android:paddingRight="16dp"
-                android:background="@color/windowBackground"
                 android:textSize="20sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -102,7 +97,6 @@
                 android:text="@string/speaker_title"
                 android:layout_below="@+id/text"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="72dp"
                 android:textSize="20sp"/>
 
 
@@ -112,9 +106,6 @@
                 android:transitionName="@string/image"
                 android:layout_below="@+id/speaker_title"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
                 android:id="@+id/image"/>
 
             <TextView
@@ -124,13 +115,23 @@
                 android:gravity="center_vertical"
                 android:layout_below="@+id/speaker_title"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="72dp"
-                android:layout_marginStart="72dp"
+                android:layout_marginLeft="56dp"
+                android:layout_marginStart="56dp"
                 android:layout_marginBottom="16dp"
                 android:transitionName="@string/speaker"
                 android:id="@+id/speaker"/>
 
         </RelativeLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        app:fabSize="mini"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|right"/>
+
+</android.support.design.widget.CoordinatorLayout>
