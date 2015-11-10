@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             mConferences.addAll(Conference.loadFromPreferences(this));
         }
-        setupViewPager();
+        setupViewPager(savedInstanceState);
         initVolley(this);
         if (mConferences.size() == 0) {
             mToolbar.post(new Runnable() {
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         bundle.putParcelableArrayList(CONFERENCES, mConferences);
     }
 
-    private void setupViewPager() {
+    private void setupViewPager(Bundle savedInstanceState) {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager());
         ConferenceDay day1 = new ConferenceDay(1, "11/12/2015");
         ConferenceDay day2 = new ConferenceDay(2, "11/13/2015");
@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageMargin(Utils.dpToPx(8, getBaseContext()));
         mTabLayout.setupWithViewPager(mViewPager);
+        if (savedInstanceState == null && day2.isToday()) {
+            mViewPager.setCurrentItem(1);
+        }
     }
 
     @Override
