@@ -16,8 +16,10 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -46,11 +48,18 @@ public class Conference implements Serializable, Parcelable {
     private String speakerImageUrl;
     private String text;
     private String location;
+    private Calendar calendar;
 
     public Conference(@NonNull String[] fromCSV) {
         CSVLine = fromCSV;
         startDate = fromCSV[0];
         endDate = fromCSV[1];
+        calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(new Date(endDate));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         headeline = fromCSV[2];
         if (fromCSV.length > 12) {
             location = fromCSV[9];
@@ -82,6 +91,15 @@ public class Conference implements Serializable, Parcelable {
     }
 
     /**
+     * Determine if the talk has started or not
+     * @return true if it is past
+     */
+    public boolean isPast() {
+        Calendar cal1 = Calendar.getInstance();
+        return calendar.before(cal1);
+    }
+
+    /**
      * Parse a inputStream reader and generate the list
      * of {@link Conference}.
      */
@@ -105,6 +123,11 @@ public class Conference implements Serializable, Parcelable {
         return conferences;
     }
 
+    /**
+     * Loads the conferences items from the sharedPreferences
+     * @param context a valid context
+     * @return the list of talks
+     */
     public static List<Conference> loadFromPreferences(Context context) {
         List<Conference> list = new ArrayList<>();
         SharedPreferences prefs = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
@@ -127,6 +150,24 @@ public class Conference implements Serializable, Parcelable {
         });
         return list;
     }
+
+    /**
+     * Find the next available talk
+     * @param data a list of Conference objects
+     * @return the position of the next item, or 0
+     */
+    public static int findNextEventPosition(@NonNull List<Conference> data) {
+        int position = 0;
+        for (Conference c: data) {
+            if (c.isPast()) {
+                position++;
+            } else {
+                return position;
+            }
+        }
+        return 0;
+    }
+
 
     private static void saveInPreferences(Context context, List<Conference> conferences) {
         SharedPreferences.Editor prefsEditor
@@ -225,6 +266,7 @@ public class Conference implements Serializable, Parcelable {
         dest.writeString(this.speakerImageUrl);
         dest.writeString(this.text);
         dest.writeString(this.location);
+        dest.writeSerializable(this.calendar);
     }
 
     protected Conference(Parcel in) {
@@ -237,6 +279,7 @@ public class Conference implements Serializable, Parcelable {
         this.speakerImageUrl = in.readString();
         this.text = in.readString();
         this.location = in.readString();
+        this.calendar = (Calendar) in.readSerializable();
     }
 
     public static final Creator<Conference> CREATOR = new Creator<Conference>() {

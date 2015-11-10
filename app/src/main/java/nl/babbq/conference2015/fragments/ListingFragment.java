@@ -91,6 +91,11 @@ public class ListingFragment extends Fragment implements HasAdapter {
                 ActivityCompat.startActivity(getActivity(), intent, bundle);
             }
         });
+
+        if (mDay.isToday()) {
+            int position = Conference.findNextEventPosition(mData);
+            mRecyclerView.smoothScrollToPosition(position);
+        }
         return mRecyclerView;
     }
 
